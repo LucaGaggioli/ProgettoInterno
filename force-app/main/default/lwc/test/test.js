@@ -167,7 +167,7 @@ export default class CallOut extends LightningElement {
     async handleOppButton() {
         
         this.title = 'Opportunity'
-        this.columns = columnsOpp;
+this.columns = columnsOpp;
         this.myList = await getAllOpportunity({url : this.url});
         this.showDataTable = true;
 
@@ -181,7 +181,4 @@ export default class CallOut extends LightningElement {
         this.showDataTable = true;
                 
     }
-
-    //Test git branch open git
-
 }
