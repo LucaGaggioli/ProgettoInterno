@@ -1,151 +1,395 @@
 <!-- sldsValidatorIgnore -->
 <template>
 
-    <div class="sidenav">
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-12">
+            <lightning-card>
+                <lightning-vertical-navigation onselect={checkPermissionOrg}>
+                    <lightning-vertical-navigation-section label="Org">
+                        <lightning-vertical-navigation-item label="Sooraj"
+                            name="org1"></lightning-vertical-navigation-item>
+                        <lightning-vertical-navigation-item label="Emanuele"
+                            name="org2"></lightning-vertical-navigation-item>
+                        <lightning-vertical-navigation-item label="Gaggio"
+                            name="org3"></lightning-vertical-navigation-item>
+                    </lightning-vertical-navigation-section>
+                </lightning-vertical-navigation>
+            </lightning-card>
+        </div>
+
+        <div class="slds-col slds-size_11-of-12">
+
+            <div if:true={showOrg1Methods} class="slds-vertical-tabs">
+                <ul class="slds-vertical-tabs__nav" role="tablist" aria-orientation="vertical">
+                    <li class="slds-vertical-tabs__nav-item slds-is-active" title="Tab 1" role="presentation"
+                        onclick={tabClick}>
+                        <a class="slds-vertical-tabs__link" href="#" role="tab" tabindex="0" aria-selected="true"
+                            aria-controls="slds-vertical-tabs-0" id="slds-vertical-tabs-0__nav">
+                            <span class="slds-vertical-tabs__left-icon"></span>
+                            <span class="slds-truncate" title="Tab 1">Get All Account</span>
+                            <span class="slds-vertical-tabs__right-icon"></span>
+                        </a>
+                    </li>
+                    <li class="slds-vertical-tabs__nav-item" title="Tab 2" role="presentation" onclick={tabClick}>
+                        <a class="slds-vertical-tabs__link" href="#" role="tab" tabindex="-1" aria-selected="false"
+                            aria-controls="slds-vertical-tabs-1" id="slds-vertical-tabs-1__nav">
+                            <span class="slds-vertical-tabs__left-icon"></span>
+                            <span class="slds-truncate" title="Tab 2">Get All Opportunity</span>
+                            <span class="slds-vertical-tabs__right-icon"></span>
+                        </a>
+                    </li>
+                    <li class="slds-vertical-tabs__nav-item" title="Tab 3" role="presentation" onclick={tabClick}>
+                        <a class="slds-vertical-tabs__link" href="#" role="tab" tabindex="-1" aria-selected="false"
+                            aria-controls="slds-vertical-tabs-2" id="slds-vertical-tabs-2__nav">
+                            <span class="slds-vertical-tabs__left-icon"></span>
+                            <span class="slds-truncate" title="Tab 3">Get All Lead</span>
+                            <span class="slds-vertical-tabs__right-icon"></span>
+                        </a>
+                    </li>
+                    <li class="slds-vertical-tabs__nav-item" title="Tab 4" role="presentation" onclick={tabClick}>
+                        <a class="slds-vertical-tabs__link" href="#" role="tab" tabindex="-1" aria-selected="false"
+                            aria-controls="slds-vertical-tabs-2" id="slds-vertical-tabs-3__nav">
+                            <span class="slds-vertical-tabs__left-icon"></span>
+                            <span class="slds-truncate" title="Tab 4">New Account</span>
+                            <span class="slds-vertical-tabs__right-icon"></span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="slds-vertical-tabs__content slds-show" id="slds-vertical-tabs-0" role="tabpanel"
+                    aria-labelledby="slds-vertical-tabs-0__nav">
+                    <article class="slds-card slds-card_boundary">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-standard-account" title="account">
+                                        <lightning-icon icon-name="standard:account" title="account"></lightning-icon>
+                                        <span class="slds-assistive-text">account</span>
+                                    </span>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title">
+                                        <span>{title}</span>
+                                    </h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <lightning-datatable key-field="Id" data={myList} columns={columns} hide-checkbox-column>
+                            </lightning-datatable>
+                        </div>
+                    </article>
+                </div>
+                <div class="slds-vertical-tabs__content slds-hide" id="slds-vertical-tabs-1" role="tabpanel"
+                    aria-labelledby="slds-vertical-tabs-1__nav">
+                    <article class="slds-card slds-card_boundary">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-standard-account" title="account">
+                                        <lightning-icon icon-name="standard:opportunity"
+                                            title="opportunity"></lightning-icon>
+                                        <span class="slds-assistive-text">opportunity</span>
+                                    </span>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title">
+                                        <span>{title}</span>
+                                    </h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <lightning-datatable key-field="Id" data={myList} columns={columns} hide-checkbox-column>
+                            </lightning-datatable>
+                        </div>
+                    </article>
+                </div>
+                <div class="slds-vertical-tabs__content slds-hide" id="slds-vertical-tabs-2" role="tabpanel"
+                    aria-labelledby="slds-vertical-tabs-2__nav">
+                    <article class="slds-card slds-card_boundary">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-standard-account" title="account">
+                                        <lightning-icon icon-name="standard:lead" title="lead"></lightning-icon>
+                                        <span class="slds-assistive-text">lead</span>
+                                    </span>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title">
+                                        <span>{title}</span>
+                                    </h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <lightning-datatable key-field="Id" data={myList} columns={columns} hide-checkbox-column>
+                            </lightning-datatable>
+                        </div>
+                    </article>
+                </div>
+                <div class="slds-vertical-tabs__content slds-hide" id="slds-vertical-tabs-3" role="tabpanel"
+                    aria-labelledby="slds-vertical-tabs-2__nav">
+                    <lightning-card>
+                        <lightning-modal-header label='New Account'>
+                        </lightning-modal-header>
+                        <lightning-modal-body class="slds-modal__content">
+                            <lightning-record-form object-api-name={objectApiName} fields={fields}
+                                onsubmit={handleSubmitAccount}>
+                            </lightning-record-form>
+                        </lightning-modal-body>
+                    </lightning-card>
+                </div>
+            </div>
+
+            <div if:true={showOrg2Methods} class="slds-vertical-tabs">
+                <ul class="slds-vertical-tabs__nav" role="tablist" aria-orientation="vertical">
+                    <li class="slds-vertical-tabs__nav-item slds-is-active" title="Tab 1" role="presentation"
+                        onclick={tabClick}>
+                        <a class="slds-vertical-tabs__link" href="#" role="tab" tabindex="0" aria-selected="true"
+                            aria-controls="slds-vertical-tabs-0" id="slds-vertical-tabs-4__nav">
+                            <span class="slds-vertical-tabs__left-icon"></span>
+                            <span class="slds-truncate" title="Tab 1">Get All Account</span>
+                            <span class="slds-vertical-tabs__right-icon"></span>
+                        </a>
+                    </li>
+                    <li class="slds-vertical-tabs__nav-item" title="Tab 2" role="presentation" onclick={tabClick}>
+                        <a class="slds-vertical-tabs__link" href="#" role="tab" tabindex="-1" aria-selected="false"
+                            aria-controls="slds-vertical-tabs-1" id="slds-vertical-tabs-5__nav">
+                            <span class="slds-vertical-tabs__left-icon"></span>
+                            <span class="slds-truncate" title="Tab 2">Get All Opportunity</span>
+                            <span class="slds-vertical-tabs__right-icon"></span>
+                        </a>
+                    </li>
+                    <li class="slds-vertical-tabs__nav-item" title="Tab 3" role="presentation" onclick={tabClick}>
+                        <a class="slds-vertical-tabs__link" href="#" role="tab" tabindex="-1" aria-selected="false"
+                            aria-controls="slds-vertical-tabs-2" id="slds-vertical-tabs-6__nav">
+                            <span class="slds-vertical-tabs__left-icon"></span>
+                            <span class="slds-truncate" title="Tab 3">Get All Lead</span>
+                            <span class="slds-vertical-tabs__right-icon"></span>
+                        </a>
+                    </li>
+                    <li class="slds-vertical-tabs__nav-item" title="Tab 4" role="presentation" onclick={tabClick}>
+                        <a class="slds-vertical-tabs__link" href="#" role="tab" tabindex="-1" aria-selected="false"
+                            aria-controls="slds-vertical-tabs-2" id="slds-vertical-tabs-7__nav">
+                            <span class="slds-vertical-tabs__left-icon"></span>
+                            <span class="slds-truncate" title="Tab 4">New Account</span>
+                            <span class="slds-vertical-tabs__right-icon"></span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="slds-vertical-tabs__content slds-show" id="slds-vertical-tabs-8" role="tabpanel"
+                    aria-labelledby="slds-vertical-tabs-0__nav">
+                    <article class="slds-card slds-card_boundary">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-standard-account" title="account">
+                                        <lightning-icon icon-name="standard:account" title="account"></lightning-icon>
+                                        <span class="slds-assistive-text">account</span>
+                                    </span>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title">
+                                        <span>{title}</span>
+                                    </h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <lightning-datatable key-field="Id" data={myList} columns={columns} hide-checkbox-column>
+                            </lightning-datatable>
+                        </div>
+                    </article>
+                </div>
+                <div class="slds-vertical-tabs__content slds-hide" id="slds-vertical-tabs-9" role="tabpanel"
+                    aria-labelledby="slds-vertical-tabs-1__nav">
+                    <article class="slds-card slds-card_boundary">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-standard-account" title="account">
+                                        <lightning-icon icon-name="standard:opportunity"
+                                            title="opportunity"></lightning-icon>
+                                        <span class="slds-assistive-text">opportunity</span>
+                                    </span>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title">
+                                        <span>{title}</span>
+                                    </h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <lightning-datatable key-field="Id" data={myList} columns={columns} hide-checkbox-column>
+                            </lightning-datatable>
+                        </div>
+                    </article>
+                </div>
+                <div class="slds-vertical-tabs__content slds-hide" id="slds-vertical-tabs-10" role="tabpanel"
+                    aria-labelledby="slds-vertical-tabs-2__nav">
+                    <article class="slds-card slds-card_boundary">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-standard-account" title="account">
+                                        <lightning-icon icon-name="standard:lead" title="lead"></lightning-icon>
+                                        <span class="slds-assistive-text">lead</span>
+                                    </span>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title">
+                                        <span>{title}</span>
+                                    </h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <lightning-datatable key-field="Id" data={myList} columns={columns} hide-checkbox-column>
+                            </lightning-datatable>
+                        </div>
+                    </article>
+                </div>
+                <div class="slds-vertical-tabs__content slds-hide" id="slds-vertical-tabs-11" role="tabpanel"
+                    aria-labelledby="slds-vertical-tabs-2__nav">
+                    <lightning-card>
+                        <lightning-modal-header label='New Account'>
+                        </lightning-modal-header>
+                        <lightning-modal-body class="slds-modal__content">
+                            <lightning-record-form object-api-name={objectApiName} fields={fields}
+                                onsubmit={handleSubmitAccount}>
+                            </lightning-record-form>
+                        </lightning-modal-body>
+                    </lightning-card>
+                </div>
+            </div>
+
+            <div if:true={showOrg3Methods} class="slds-vertical-tabs">
+                <ul class="slds-vertical-tabs__nav" role="tablist" aria-orientation="vertical">
+                    <li class="slds-vertical-tabs__nav-item slds-is-active" title="Tab 1" role="presentation"
+                        onclick={tabClick}>
+                        <a class="slds-vertical-tabs__link" href="#" role="tab" tabindex="0" aria-selected="true"
+                            aria-controls="slds-vertical-tabs-0" id="slds-vertical-tabs-12__nav">
+                            <span class="slds-vertical-tabs__left-icon"></span>
+                            <span class="slds-truncate" title="Tab 1">Get All Account</span>
+                            <span class="slds-vertical-tabs__right-icon"></span>
+                        </a>
+                    </li>
+                    <li class="slds-vertical-tabs__nav-item" title="Tab 2" role="presentation" onclick={tabClick}>
+                        <a class="slds-vertical-tabs__link" href="#" role="tab" tabindex="-1" aria-selected="false"
+                            aria-controls="slds-vertical-tabs-1" id="slds-vertical-tabs-13__nav">
+                            <span class="slds-vertical-tabs__left-icon"></span>
+                            <span class="slds-truncate" title="Tab 2">Get All Opportunity</span>
+                            <span class="slds-vertical-tabs__right-icon"></span>
+                        </a>
+                    </li>
+                    <li class="slds-vertical-tabs__nav-item" title="Tab 3" role="presentation" onclick={tabClick}>
+                        <a class="slds-vertical-tabs__link" href="#" role="tab" tabindex="-1" aria-selected="false"
+                            aria-controls="slds-vertical-tabs-2" id="slds-vertical-tabs-14__nav">
+                            <span class="slds-vertical-tabs__left-icon"></span>
+                            <span class="slds-truncate" title="Tab 3">Get All Lead</span>
+                            <span class="slds-vertical-tabs__right-icon"></span>
+                        </a>
+                    </li>
+                    <li class="slds-vertical-tabs__nav-item" title="Tab 4" role="presentation" onclick={tabClick}>
+                        <a class="slds-vertical-tabs__link" href="#" role="tab" tabindex="-1" aria-selected="false"
+                            aria-controls="slds-vertical-tabs-2" id="slds-vertical-tabs-15__nav">
+                            <span class="slds-vertical-tabs__left-icon"></span>
+                            <span class="slds-truncate" title="Tab 4">New Account</span>
+                            <span class="slds-vertical-tabs__right-icon"></span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="slds-vertical-tabs__content slds-show" id="slds-vertical-tabs-15" role="tabpanel"
+                    aria-labelledby="slds-vertical-tabs-0__nav">
+                    <article class="slds-card slds-card_boundary">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-standard-account" title="account">
+                                        <lightning-icon icon-name="standard:account" title="account"></lightning-icon>
+                                        <span class="slds-assistive-text">account</span>
+                                    </span>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title">
+                                        <span>{title}</span>
+                                    </h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <lightning-datatable key-field="Id" data={myList} columns={columns} hide-checkbox-column>
+                            </lightning-datatable>
+                        </div>
+                    </article>
+                </div>
+                <div class="slds-vertical-tabs__content slds-hide" id="slds-vertical-tabs-16" role="tabpanel"
+                    aria-labelledby="slds-vertical-tabs-1__nav">
+                    <article class="slds-card slds-card_boundary">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-standard-account" title="account">
+                                        <lightning-icon icon-name="standard:opportunity"
+                                            title="opportunity"></lightning-icon>
+                                        <span class="slds-assistive-text">opportunity</span>
+                                    </span>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title">
+                                        <span>{title}</span>
+                                    </h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <lightning-datatable key-field="Id" data={myList} columns={columns} hide-checkbox-column>
+                            </lightning-datatable>
+                        </div>
+                    </article>
+                </div>
+                <div class="slds-vertical-tabs__content slds-hide" id="slds-vertical-tabs-17" role="tabpanel"
+                    aria-labelledby="slds-vertical-tabs-2__nav">
+                    <article class="slds-card slds-card_boundary">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-standard-account" title="account">
+                                        <lightning-icon icon-name="standard:lead" title="lead"></lightning-icon>
+                                        <span class="slds-assistive-text">lead</span>
+                                    </span>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title">
+                                        <span>{title}</span>
+                                    </h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <lightning-datatable key-field="Id" data={myList} columns={columns} hide-checkbox-column>
+                            </lightning-datatable>
+                        </div>
+                    </article>
+                </div>
+                <div class="slds-vertical-tabs__content slds-hide" id="slds-vertical-tabs-18" role="tabpanel"
+                    aria-labelledby="slds-vertical-tabs-2__nav">
+                    <lightning-card>
+                        <lightning-modal-header label='New Account'>
+                        </lightning-modal-header>
+                        <lightning-modal-body class="slds-modal__content">
+                            <lightning-record-form object-api-name={objectApiName} fields={fields}
+                                onsubmit={handleSubmitAccount}>
+                            </lightning-record-form>
+                        </lightning-modal-body>
+                    </lightning-card>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="vertical-navigation">
-        <lightning-vertical-navigation onselect={checkPermissionOrg}>
-            <lightning-vertical-navigation-section label="Org">
-                <lightning-vertical-navigation-item label="Sooraj" name="org1"></lightning-vertical-navigation-item>
-                <lightning-vertical-navigation-item label="Emanuele" name="org2"></lightning-vertical-navigation-item>
-                <lightning-vertical-navigation-item label="Gaggio" name="org3"></lightning-vertical-navigation-item>
-            </lightning-vertical-navigation-section>
-        </lightning-vertical-navigation>
-    </div>
-
-    <div class="child2">
-        <lightning-card if:true={showOrg1Methods}>
-            <lightning-card  title={title}>
-                <lightning-tabset variant="vertical" active-tab-value="one" if:true={showDataTable}>
-                    <lightning-tab label="Get All Account" value="one" onactive ={handleAccountButton}>
-                        <lightning-datatable 
-                            key-field="Id" 
-                            data={myList} 
-                            columns={columns}
-                            hide-checkbox-column>
-                        </lightning-datatable>
-                    </lightning-tab>
-                    <lightning-tab label="Get All Opportunity" value="two" onactive ={handleOppButton}>
-                        <lightning-datatable 
-                            key-field="Id" 
-                            data={myList} 
-                            columns={columns}
-                            hide-checkbox-column>
-                    </lightning-datatable>
-                    </lightning-tab>
-                    <lightning-tab label="Get All Lead" value="three" onactive={handleLeadButton}>
-                        <lightning-datatable 
-                            key-field="Id" 
-                            data={myList} 
-                            columns={columns}
-                            hide-checkbox-column>
-                    </lightning-datatable>
-                    </lightning-tab>
-                    <lightning-tab label="Post New Account">
-                        <lightning-card>
-                            <lightning-modal-header label='New Account'>
-                            </lightning-modal-header>
-                                <lightning-modal-body  class="slds-modal__content">
-                                    <lightning-record-form
-                                    object-api-name={objectApiName}
-                                    fields={fields}
-                                    onsubmit={handleSubmitAccount}>
-                                </lightning-record-form>
-                            </lightning-modal-body>
-                        </lightning-card>
-                    </lightning-tab>
-                </lightning-tabset>
-            </lightning-card>
-        </lightning-card>
-
-        <lightning-card if:true={showOrg2Methods}>
-            <lightning-card  title={title}>
-                <lightning-tabset variant="vertical" active-tab-value="one" if:true={showDataTable}>
-                    <lightning-tab label="Get All Account" value="one" onactive ={handleAccountButton}>
-                        <lightning-datatable 
-                            key-field="Id" 
-                            data={myList} 
-                            columns={columns}
-                            hide-checkbox-column>
-                        </lightning-datatable>
-                    </lightning-tab>
-                    <lightning-tab label="Get All Opportunity" value="two" onactive ={handleOppButton}>
-                        <lightning-datatable 
-                            key-field="Id" 
-                            data={myList} 
-                            columns={columns}
-                            hide-checkbox-column>
-                    </lightning-datatable>
-                    </lightning-tab>
-                    <lightning-tab label="Get All Lead" value="three" onactive={handleLeadButton}>
-                        <lightning-datatable 
-                            key-field="Id" 
-                            data={myList} 
-                            columns={columns}
-                            hide-checkbox-column>
-                    </lightning-datatable>
-                    </lightning-tab>
-                    <lightning-tab label="Post New Account">
-                        <lightning-card>
-                            <lightning-modal-header label='New Account'>
-                            </lightning-modal-header>
-                                <lightning-modal-body  class="slds-modal__content">
-                                    <lightning-record-form
-                                    object-api-name={objectApiName}
-                                    fields={fields}
-                                    onsubmit={handleSubmitAccount}>
-                                </lightning-record-form>
-                            </lightning-modal-body>
-                        </lightning-card>
-                    </lightning-tab>
-                </lightning-tabset>
-            </lightning-card>
-        </lightning-card>
-
-        <lightning-card if:true={showOrg3Methods}>
-            <lightning-card  title={title}>
-                <lightning-tabset variant="vertical" active-tab-value="one" if:true={showDataTable}>
-                    <lightning-tab label="Get All Account" value="one" onactive ={handleAccountButton}>
-                        <lightning-datatable 
-                            key-field="Id" 
-                            data={myList} 
-                            columns={columns}
-                            hide-checkbox-column>
-                        </lightning-datatable>
-                    </lightning-tab>
-                    <lightning-tab label="Get All Opportunity" value="two" onactive ={handleOppButton}>
-                        <lightning-datatable 
-                            key-field="Id" 
-                            data={myList} 
-                            columns={columns}
-                            hide-checkbox-column>
-                    </lightning-datatable>
-                    </lightning-tab>
-                    <lightning-tab label="Get All Lead" value="three" onactive={handleLeadButton}>
-                        <lightning-datatable 
-                            key-field="Id" 
-                            data={myList} 
-                            columns={columns}
-                            hide-checkbox-column>
-                    </lightning-datatable>
-                    </lightning-tab>
-                    <lightning-tab label="Post New Account">
-                        <lightning-card>
-                            <lightning-modal-header label='New Account'>
-                            </lightning-modal-header>
-                                <lightning-modal-body  class="slds-modal__content">
-                                    <lightning-record-form
-                                    object-api-name={objectApiName}
-                                    fields={fields}
-                                    onsubmit={handleSubmitAccount}>
-                                </lightning-record-form>
-                            </lightning-modal-body>
-                        </lightning-card>
-                    </lightning-tab>
-                </lightning-tabset>
-            </lightning-card>
-        </lightning-card>
-    </div>
-    
 </template>

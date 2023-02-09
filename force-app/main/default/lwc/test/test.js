@@ -181,4 +181,47 @@ export default class CallOut extends LightningElement {
         this.showDataTable = true;
 
     }
+
+
+    getAllTabs() {
+        return [...this.template.querySelectorAll('.slds-vertical-tabs__nav-item')];
+    }
+    getCurrentTab() {
+        return this.getAllTabs().findIndex((tab) => tab.classList.contains('slds-is-active'));
+    }
+    nextTab() {
+        this.setNewTab(
+            (this.getCurrentTab() + 1) % this.getAllTabs().length
+        );
+    }
+    tabClick(e) {
+        const allTabs = this.getAllTabs();
+        const newIndex = allTabs.findIndex((tab) => tab === e.currentTarget);
+        this.setNewTab(newIndex);
+    }
+    setNewTab(index) {
+        const allTabs = this.getAllTabs();
+        const tabElement = allTabs[index];
+        allTabs.forEach((tab) => tab.classList.remove('slds-is-active'));
+        tabElement.classList.add('slds-is-active');
+        const tabContent = this.template.querySelectorAll('.slds-vertical-tabs__content');
+        tabContent.forEach((elm) => {
+            elm.classList.remove("slds-show");
+            elm.classList.add("slds-hide");
+        });
+        tabContent[index].classList.remove("slds-hide");
+        switch (index) {
+            case 0:
+                this.handleAccountButton();
+                break;
+            case 1:
+                this.handleOppButton();
+                break;
+            case 2:
+                this.handleLeadButton();
+                break;
+        }
+        tabContent[index].classList.add("slds-show");
+    }
+
 }
