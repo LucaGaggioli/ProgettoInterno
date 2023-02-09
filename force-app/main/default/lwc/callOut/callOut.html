@@ -1,0 +1,155 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    
+    <div class="slds-grid slds-gutters">
+        
+        <div class="slds-col slds-size_1-of-12">
+            <lightning-card>
+                <lightning-vertical-navigation onselect={checkPermissionOrg}>
+                    <lightning-vertical-navigation-section label="Org">
+                        <lightning-vertical-navigation-item label="Sooraj" name="org1"></lightning-vertical-navigation-item>
+                        <lightning-vertical-navigation-item label="Emanuele" name="org2"></lightning-vertical-navigation-item>
+                        <lightning-vertical-navigation-item label="Gaggio" name="org3"></lightning-vertical-navigation-item>
+                    </lightning-vertical-navigation-section>
+                </lightning-vertical-navigation>
+            </lightning-card>
+        </div>
+
+        <div class="slds-col slds-size_11-of-12">
+            <lightning-card if:true={showOrg1Methods}>
+                <lightning-card  title={title}>
+                    <lightning-tabset variant="vertical" active-tab-value="one" if:true={showDataTable}>
+                        <lightning-tab label="Get All Account" value="one" onactive ={handleAccountButton}>
+                            <lightning-datatable 
+                                key-field="Id" 
+                                data={myList} 
+                                columns={columns}
+                                hide-checkbox-column>
+                            </lightning-datatable>
+                        </lightning-tab>
+                        <lightning-tab label="Get All Opportunity" value="two" onactive ={handleOppButton}>
+                            <lightning-datatable 
+                                key-field="Id" 
+                                data={myList} 
+                                columns={columns}
+                                hide-checkbox-column>
+                        </lightning-datatable>
+                        </lightning-tab>
+                        <lightning-tab label="Get All Lead" value="three" onactive={handleLeadButton}>
+                            <lightning-datatable 
+                                key-field="Id" 
+                                data={myList} 
+                                columns={columns}
+                                hide-checkbox-column>
+                        </lightning-datatable>
+                        </lightning-tab>
+                        <lightning-tab label="Post New Account">
+                            <lightning-card>
+                                <lightning-modal-header label='New Account'>
+                                </lightning-modal-header>
+                                    <lightning-modal-body  class="slds-modal__content">
+                                        <lightning-record-form
+                                        object-api-name={objectApiName}
+                                        fields={fields}
+                                        onsubmit={handleSubmitAccount}>
+                                    </lightning-record-form>
+                                </lightning-modal-body>
+                            </lightning-card>
+                        </lightning-tab>
+                    </lightning-tabset>
+                </lightning-card>
+            </lightning-card>
+
+            <lightning-card if:true={showOrg2Methods}>
+                <lightning-card  title={title}>
+                    <lightning-tabset variant="vertical" active-tab-value="one" if:true={showDataTable}>
+                        <lightning-tab label="Get All Account" value="one" onactive ={handleAccountButton}>
+                            <lightning-datatable 
+                                key-field="Id" 
+                                data={myList} 
+                                columns={columns}
+                                hide-checkbox-column>
+                            </lightning-datatable>
+                        </lightning-tab>
+                        <lightning-tab label="Get All Opportunity" value="two" onactive ={handleOppButton}>
+                            <lightning-datatable 
+                                key-field="Id" 
+                                data={myList} 
+                                columns={columns}
+                                hide-checkbox-column>
+                        </lightning-datatable>
+                        </lightning-tab>
+                        <lightning-tab label="Get All Lead" value="three" onactive={handleLeadButton}>
+                            <lightning-datatable 
+                                key-field="Id" 
+                                data={myList} 
+                                columns={columns}
+                                hide-checkbox-column>
+                        </lightning-datatable>
+                        </lightning-tab>
+                        <lightning-tab label="Post New Account">
+                            <lightning-card>
+                                <lightning-modal-header label='New Account'>
+                                </lightning-modal-header>
+                                    <lightning-modal-body  class="slds-modal__content">
+                                        <lightning-record-form
+                                        object-api-name={objectApiName}
+                                        fields={fields}
+                                        onsubmit={handleSubmitAccount}>
+                                    </lightning-record-form>
+                                </lightning-modal-body>
+                            </lightning-card>
+                        </lightning-tab>
+                    </lightning-tabset>
+                </lightning-card>
+            </lightning-card>
+
+            <lightning-card if:true={showOrg3Methods}>
+                <lightning-card  title={title}>
+                    <lightning-tabset variant="vertical" active-tab-value="one" if:true={showDataTable}>
+                        <lightning-tab label="Get All Account" value="one" onactive ={handleAccountButton}>
+                            <lightning-datatable 
+                                key-field="Id" 
+                                data={myList} 
+                                columns={columns}
+                                hide-checkbox-column>
+                            </lightning-datatable>
+                        </lightning-tab>
+                        <lightning-tab label="Get All Opportunity" value="two" onactive ={handleOppButton}>
+                            <lightning-datatable 
+                                key-field="Id" 
+                                data={myList} 
+                                columns={columns}
+                                hide-checkbox-column>
+                        </lightning-datatable>
+                        </lightning-tab>
+                        <lightning-tab label="Get All Lead" value="three" onactive={handleLeadButton}>
+                            <lightning-datatable 
+                                key-field="Id" 
+                                data={myList} 
+                                columns={columns}
+                                hide-checkbox-column>
+                        </lightning-datatable>
+                        </lightning-tab>
+                        <lightning-tab label="Post New Account">
+                            <lightning-card>
+                                <lightning-modal-header label='New Account'>
+                                </lightning-modal-header>
+                                    <lightning-modal-body  class="slds-modal__content">
+                                        <lightning-record-form
+                                        object-api-name={objectApiName}
+                                        fields={fields}
+                                        onsubmit={handleSubmitAccount}>
+                                    </lightning-record-form>
+                                </lightning-modal-body>
+                            </lightning-card>
+                        </lightning-tab>
+                    </lightning-tabset>
+                </lightning-card>
+            </lightning-card>
+        </div>
+        
+    </div>
+    
+
+</template>
