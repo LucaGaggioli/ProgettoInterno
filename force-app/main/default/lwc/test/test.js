@@ -182,6 +182,6 @@ export default class CallOut extends LightningElement {
                 
     }
 
-    //Test git branch open git
+    //Test git branch
 
 }
