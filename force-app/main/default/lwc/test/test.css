@@ -1,0 +1,30 @@
+.box {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-left: calc(-1 * var(--lwc-spacingSmall, 0.75rem));
+    margin-top: calc(-1 * var(--lwc-spacingSmall, 0.75rem));
+    margin-bottom: calc(-1 * var(--lwc-spacingSmall, 0.75rem));
+    margin-right: calc(-1 * var(--lwc-spacingSmall, 0.75rem));
+}
+
+.left {
+    position: fixed;
+    height: 100%;
+    width: 120px;
+    background-color: white;
+}
+
+.right {
+    position: absolute;
+    top: var(--lwc-spacingSmall, 0.75rem);
+    right: var(--lwc-spacingSmall, 0.75rem);
+    left: 120px;
+    margin-left: var(--lwc-spacingSmall, 0.75rem);
+}
+
+.new-account {
+    width: 300px;
+}
