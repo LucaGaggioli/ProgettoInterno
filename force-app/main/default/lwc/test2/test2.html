@@ -1,0 +1,81 @@
+<!-- sldsValidatorIgnore -->
+<template>
+
+    <div class="org">
+        <lightning-vertical-navigation onselect={checkPermissionOrg}>
+            <lightning-vertical-navigation-section label="Org">
+                <lightning-vertical-navigation-item label="Sooraj" name="org1"></lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="Emanuele" name="org2"></lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="Gaggio" name="org3"></lightning-vertical-navigation-item>
+            </lightning-vertical-navigation-section>
+        </lightning-vertical-navigation>
+    </div>
+
+    <div class="method" if:true={showOrg1Methods}>
+        <lightning-vertical-navigation onselect={switchMethod} selected-item="account">
+            <lightning-vertical-navigation-section label="Methods">
+                <lightning-vertical-navigation-item label="Get All Account" name="account"></lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="Get All Opportunity" name="opportunity"></lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="Get All Lead" name="lead"></lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="New Account" name="new"></lightning-vertical-navigation-item>
+            </lightning-vertical-navigation-section>
+        </lightning-vertical-navigation>
+    </div>
+
+    <div class="method" if:true={showOrg2Methods}>
+        <lightning-vertical-navigation onselect={switchMethod} selected-item="account">
+            <lightning-vertical-navigation-section label="Methods">
+                <lightning-vertical-navigation-item label="Get All Account" name="account"></lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="Get All Opportunity" name="opportunity"></lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="Get All Lead" name="lead"></lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="New Account" name="new"></lightning-vertical-navigation-item>
+            </lightning-vertical-navigation-section>
+        </lightning-vertical-navigation>
+    </div>
+
+    <div class="method" if:true={showOrg3Methods}>
+        <lightning-vertical-navigation onselect={switchMethod} selected-item="account">
+            <lightning-vertical-navigation-section label="Methods">
+                <lightning-vertical-navigation-item label="Get All Account" name="account"></lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="Get All Opportunity" name="opportunity"></lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="Get All Lead" name="lead"></lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="New Account" name="new"></lightning-vertical-navigation-item>
+            </lightning-vertical-navigation-section>
+        </lightning-vertical-navigation>
+    </div>
+
+    <div class="box">
+        <div class="slds-scrollable" style="height: 100%;">
+            <article if:true={showDataTable} class="slds-card slds-card_boundary">
+                <lightning-card>
+                    <h3 slot="title">
+                        <lightning-icon icon-name={icon} title="title"></lightning-icon>
+                        {title}
+                    </h3>
+                    <lightning-datatable key-field="Id" data={myList} columns={columns} hide-checkbox-column>
+                    </lightning-datatable>
+                </lightning-card>
+    
+            </article>
+        </div>
+
+        <article if:true={isNewAccOpen} class="slds-card slds-card_boundary new-account">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span>New Account</span>
+                        </h2>
+                    </div>
+                </header>
+            </div>
+            <div class="slds-card__body slds-card__body_inner">
+                <lightning-record-form object-api-name={objectApiName} fields={fields}
+                    onsubmit={handleSubmitAccount}>
+                </lightning-record-form>
+            </div>
+        </article>
+
+    </div>
+
+</template>
