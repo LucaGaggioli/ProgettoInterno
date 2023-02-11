@@ -129,31 +129,29 @@ export default class CallOut extends LightningElement {
         this.showDataTable = false;
         switch (event.detail.name) {
             case 'org1':
-                await this.chooseOrgMethods(1);
-                this.showToastPermission(this.showOrg1Methods, 'Org 1');
                 this.url = url1;
+                await this.chooseOrgMethods(1);
                 if (this.showOrg1Methods) {
                     await this.handleAccountButton();
                 }
                 break;
             case 'org2':
+                this.url = url2;
                 await this.chooseOrgMethods(2);
                 this.showToastPermission(this.showOrg2Methods, 'Org 2');
-                this.url = url2;
                 if (this.showOrg2Methods) {
                     await this.handleAccountButton();
                 }
                 break;
             case 'org3':
+                this.url = url3;
                 await this.chooseOrgMethods(3);
                 this.showToastPermission(this.showOrg3Methods, 'Org 3');
-                this.url = url3;
                 if (this.showOrg3Methods) {
                     await this.handleAccountButton();
                 }
                 break;
         }
-        this.showDataTable = true;
     }
 
     //Gestisce l'inserimento di un account
