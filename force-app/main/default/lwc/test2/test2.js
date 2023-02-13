@@ -53,7 +53,7 @@ export default class CallOut extends LightningElement {
     fields = [ACC_NAME_FIELD, ACC_PHONE_FIELD, ACC_DESCRIPTION];
     isNewAccOpen = false;
 
-    //DataTable singola
+    //DataTable
     icon;
     title;
     showDataTable = false;
