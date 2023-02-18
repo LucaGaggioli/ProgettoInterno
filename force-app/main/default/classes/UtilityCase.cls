@@ -1,5 +1,18 @@
-public class UtilityTrigger{
+public class UtilityCase{
 
+   
+   
+    //Mappa i record type sull'oggetto
+    static Map<Id,RecordType> recordTypeMap = new Map<Id, RecordType>([SELECT id, name FROM RecordType WHERE SobjectType = 'Case']);
+
+    //Lista degli attestati di rischio da aggiornare
+    static List<AttestatoDiRischio__c> attList;
+
+    //Mappa l'id di un libretto con la descrizione del case che lo riguarda
+    static Map<Id,String> toGetLib = new Map<Id, String>();
+
+    
+    
     //Aggiorna la classe di rischio
     private static void setRiskClass(AttestatoDiRischio__c att){
         if (att.ClassediRischio__c > 16){
@@ -21,7 +34,7 @@ public class UtilityTrigger{
     }
 
     //Seleziona i libretti da aggiornare
-    private static void chooseLib(Map<Id,RecordType> recordTypeMap, Map<Id,String> toGetLib, Case c){
+    private static void chooseLib(Case c){
 
         if(recordTypeMap.get(c.RecordTypeId).Name == 'Incidente' && c.Status == 'Closed' && c.Guilt__c > 0.50){
             toGetLib.put(c.Libretto__c, c.Description);
@@ -29,20 +42,11 @@ public class UtilityTrigger{
         
     }
 
-    //Aggiorna la descrizione dell'attestato di rischio con il nuovo incidente
+    //Aggiorna la descrizione degli attestati di rischio con i relativi incidenti
     public static void updateDescription(List<Case> cases){
-        
-        //Mappa i record type sull'oggetto
-        Map<Id,RecordType> recordTypeMap = new Map<Id, RecordType>([SELECT id, name FROM RecordType WHERE SobjectType = 'Case']);
-        
-        //Mappa l'id di un libretto con la descrizione del case che lo riguarda
-        Map<Id,String> toGetLib = new Map<Id, String>();
-        
-        //Lista degli attestati di rischio da aggiornare
-        List<AttestatoDiRischio__c> attList;
        
         for(Case c : cases){
-            chooseLib(recordTypeMap, toGetLib, c);
+            chooseLib(c);
         }
 
         //Recupera gli Attestati i cui libretti sono stati selezionati
