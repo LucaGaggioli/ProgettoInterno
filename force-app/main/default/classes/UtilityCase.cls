@@ -34,7 +34,7 @@ public class UtilityCase{
 
 
 
-    
+
     //Aggiorna la classe di rischio
     private static void setRiskClass(AttestatoDiRischio__c att){
         if (att.ClassediRischio__c > 16){
@@ -57,11 +57,9 @@ public class UtilityCase{
 
     //Seleziona i libretti da aggiornare
     private static void chooseLib(Case c){
-
         if(recordTypeMap.get(c.RecordTypeId).Name == 'Incidente' && c.Status == 'Closed' && c.Guilt__c > 0.50){
             toGetLib.put(c.Libretto__c, c.Description);
-        }
-        
+        }   
     }
 
 
