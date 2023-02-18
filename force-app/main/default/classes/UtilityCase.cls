@@ -13,6 +13,28 @@ public class UtilityCase{
 
     
     
+
+
+    //Aggiorna la descrizione degli attestati di rischio con i relativi incidenti
+    public static void updateDescription(List<Case> cases){
+        for(Case c : cases){
+            chooseLib(c);
+        }
+
+        //Recupera gli Attestati i cui libretti sono stati selezionati
+        attList = [SELECT Name, CreatedDate, SinistrositaPregressa__c, Libretto__c, ClassediRischio__c FROM AttestatoDiRischio__c WHERE Libretto__r.Id IN :toGetLib.keySet()];
+        
+        for(AttestatoDiRischio__c att : attList ){
+            setRiskClass(att);
+            setCrashHistory(att, toGetLib.get(att.Libretto__c));
+        }
+
+        Database.update(attList, false);        
+    }
+
+
+
+    
     //Aggiorna la classe di rischio
     private static void setRiskClass(AttestatoDiRischio__c att){
         if (att.ClassediRischio__c > 16){
@@ -42,27 +64,7 @@ public class UtilityCase{
         
     }
 
-    //Aggiorna la descrizione degli attestati di rischio con i relativi incidenti
-    public static void updateDescription(List<Case> cases){
-       
-        for(Case c : cases){
-            chooseLib(c);
-        }
 
-        //Recupera gli Attestati i cui libretti sono stati selezionati
-        attList = [SELECT Name, CreatedDate, SinistrositaPregressa__c, Libretto__c, ClassediRischio__c FROM AttestatoDiRischio__c WHERE Libretto__r.Id IN :toGetLib.keySet()];
-        
-        for(AttestatoDiRischio__c att : attList ){
-            setRiskClass(att);
-            setCrashHistory(att, toGetLib.get(att.Libretto__c));
-        }
 
-        Database.update(attList, false);
-        
-    }
-    
-    
-    
-    
-    
+
 }
