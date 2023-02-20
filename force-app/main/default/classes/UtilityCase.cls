@@ -8,8 +8,8 @@ public class UtilityCase{
     //Lista degli attestati di rischio da aggiornare
     static List<AttestatoDiRischio__c> attList;
 
-    //Mappa l'id di un libretto con la descrizione del case che lo riguarda
-    static Map<Id,String> toGetLib = new Map<Id, String>();
+    //Mappa l'id di un libretto con la descrizione(0) e la data dell'ultimo incidente del case che lo riguarda
+    static Map<Id,List<Object>> toGetLib = new Map<Id, List<Object>>();
 
     
     
@@ -26,7 +26,8 @@ public class UtilityCase{
         
         for(AttestatoDiRischio__c att : attList ){
             setRiskClass(att);
-            setCrashHistory(att, toGetLib.get(att.Libretto__c));
+            setCrashHistory(att, (String) toGetLib.get(att.Libretto__c)[0]);
+            setLastCrash(att, (Datetime) toGetLib.get(att.Libretto__c)[1]);
         }
 
         Database.update(attList, false);        
@@ -55,10 +56,15 @@ public class UtilityCase{
         }
     }
 
+    //Aggiorna la data dell'ultimo incidente
+    private static void setLastCrash(AttestatoDiRischio__c att, Datetime data){
+        att.data_ultimo_incidente__c = data;
+    }
+
     //Seleziona i libretti da aggiornare
     private static void chooseLib(Case c){
         if(recordTypeMap.get(c.RecordTypeId).Name == 'Incidente' && c.Status == 'Closed' && c.Guilt__c > 0.50){
-            toGetLib.put(c.Libretto__c, c.Description);
+            toGetLib.put(c.Libretto__c, new List<Object>{c.Description, c.ClosedDate});
         }   
     }
 
